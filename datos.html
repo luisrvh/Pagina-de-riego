@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recomendaciones de Riego</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('fondo.jpg'); /* Reemplaza 'tu_imagen_de_fondo.jpg' con la ruta de tu imagen */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .contenedor {
+            text-align: center;
+            margin-top: 30px;
+            background-color: rgba(3, 3, 3, 0.8); /* Fondo blanco semitransparente */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgb(255, 255, 255);
+            color: #7c7979; /* Sombra ligera */
+        }
+
+        .recomendacion {
+            display: inline-block;
+            width: 100px;
+            margin: 40px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f2f2f2;
+        }
+        .register-form button,
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            color: rgb(41, 235, 15);
+            
+        }
+
+        .grafico {
+            width: 50%;
+            margin: auto;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Recomendaciones de Riego para tu Viñedo</h1>
+        
+        <div class="grafico" id="grafico"></div>
+
+        <div id="datosRecomendaciones"></div>
+
+        <a href="iniciarsesion.html" class="back-button">Regresar a la página principal</a>
+
+
+    </div>
+
+    <script>
+        // Generar datos aleatorios
+        const generarDatosAleatorios = () => {
+            const zonas = ['Zona A', 'Zona B', 'Zona C', 'Zona D'];
+            const datos = zonas.map(zona => ({
+                zona,
+                recomendacion: Math.floor(Math.random() * 100) + 1, // Valor aleatorio entre 1 y 100
+            }));
+            return datos;
+        };
+
+        // Obtener datos aleatorios
+        const datosRecomendaciones = generarDatosAleatorios();
+
+        // Mostrar datos en contenedor
+        const contenedorDatos = d3.select("#datosRecomendaciones");
+
+        contenedorDatos.selectAll(".recomendacion")
+            .data(datosRecomendaciones)
+            .enter()
+            .append("div")
+            .attr("class", "recomendacion")
+            .html(d => `<p>${d.zona}</p><p>${d.recomendacion}%</p>`);
+
+        // Crear gráfico de barras
+        const contenedorGrafico = d3.select("#grafico");
+
+        contenedorGrafico.selectAll("div")
+            .data(datosRecomendaciones)
+            .enter()
+            .append("div")
+            .style("width", d => `${d.recomendacion * 3}px`)
+            .text(d => `${d.zona}: ${d.recomendacion}%`)
+            .style("margin-bottom", "10px")
+            .style("background-color", "skyblue")
+            .style("color", "white")
+            .style("padding", "5px");
+    </script>
+</body>
+</html>
+

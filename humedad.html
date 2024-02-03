@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gráficos de Humedad, Temperatura y Consumo de Agua</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-image: url('fondo.jpg');
+      background-size: cover;
+      background-position: center;
+      font-family: Arial, sans-serif;
+    }
+    .register-form button,
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+    #chartContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      max-width: 100%; /* Ancho máximo */
+      background-color: rgba(255, 255, 255, 0.781);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      margin: 100px; /* Espaciado alrededor del contenedor */
+    }
+
+    canvas {
+      width: 80%; /* Ancho del gráfico */
+      height: auto; /* Altura automática */
+      margin-bottom: 20px; /* Espaciado entre los gráficos */
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div id="chartContainer">
+    <h1 style="color: rgb(8, 8, 8);">Gráficos de Humedad, Temperatura y Consumo de Agua</h1>
+    <canvas id="humidityChart" width="1000" height="200"></canvas>
+    <canvas id="temperatureChart" width="1000" height="200"></canvas>
+    <canvas id="waterConsumptionChart" width="1000" height="200"></canvas>
+    <a href="iniciarsesion.html" class="back-button">Regresar a la página principal</a>
+  </div>
+
+  <script>
+    function getRandomValue(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    var ctxHumidity = document.getElementById('humidityChart').getContext('2d');
+    var humidityChart = new Chart(ctxHumidity, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Humedad',
+          data: [],
+          borderColor: 'blue',
+          borderWidth: 1,
+          fill: false
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    var ctxTemperature = document.getElementById('temperatureChart').getContext('2d');
+    var temperatureChart = new Chart(ctxTemperature, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Temperatura',
+          data: [],
+          borderColor: 'red',
+          borderWidth: 1,
+          fill: false
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    var ctxWaterConsumption = document.getElementById('waterConsumptionChart').getContext('2d');
+    var waterConsumptionChart = new Chart(ctxWaterConsumption, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Consumo de Agua',
+          data: [],
+          borderColor: 'green',
+          borderWidth: 1,
+          fill: false
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    function updateCharts() {
+      var randomHumiValue = getRandomValue(20, 80);
+      var randomTempValue = getRandomValue(0, 40);
+      var randomWaterConsumption = getRandomValue(0, 10); // Valores simulados de consumo de agua
+      var currentTime = new Date();
+      var formattedTime = currentTime.getHours() + ':' + currentTime.getMinutes() + ':' + currentTime.getSeconds();
+
+      humidityChart.data.labels.push(formattedTime);
+      humidityChart.data.datasets[0].data.push(randomHumiValue);
+
+      temperatureChart.data.labels.push(formattedTime);
+      temperatureChart.data.datasets[0].data.push(randomTempValue);
+
+      waterConsumptionChart.data.labels.push(formattedTime);
+      waterConsumptionChart.data.datasets[0].data.push(randomWaterConsumption);
+
+      humidityChart.update();
+      temperatureChart.update();
+      waterConsumptionChart.update();
+    }
+
+    setInterval(updateCharts, 5000);
+  </script>
+   
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+
+    <style>
+       body {
+            background-image: url('fondo.jpg'); /* Reemplaza 'fondo.jpg' con la ruta de tu imagen */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgb(8, 8, 8);
+        }
+
+        #resultado {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .usuario-container {
+            background-color: rgba(255, 255, 255, 0.315);
+            border: 1px solid #000000;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 200px;
+            text-align: center;
+        }
+
+        .usuario-container img {
+            max-width: 100px;
+            border-radius: 50%;
+        }
+
+        #boton-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="resultado"></div>
+    <div id="boton-container">
+        <button onclick="cargarUsuarios()">Mostrar mas viticultores</button>
+    </div>
+
+    <script>
+        // Cargar 5 usuarios al cargar la página
+        document.addEventListener('DOMContentLoaded', function () {
+            cargarUsuarios();
+        });
+
+        function cargarUsuarios() {
+            // Realizar una solicitud HTTP para obtener 5 usuarios
+            fetch('https://randomuser.me/api/?results=5')
+                .then(response => response.json())
+                .then(data => {
+                    // Manipular el DOM para mostrar la información de los usuarios
+                    mostrarUsuarios(data.results);
+                })
+                .catch(error => console.error('Error al cargar los usuarios', error));
+        }
+
+        function mostrarUsuarios(usuarios) {
+            // Construir el HTML para mostrar la información de los usuarios
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = '';
+
+            usuarios.forEach(usuario => {
+                const usuarioContainer = document.createElement('div');
+                usuarioContainer.classList.add('usuario-container');
+                usuarioContainer.innerHTML = `
+                    <img src="${usuario.picture.large}" alt="User Picture">
+                    <p><strong>Correo:</strong> ${usuario.email}</p>
+                    <p><strong>Teléfono:</strong> ${usuario.phone}</p>
+                    <p><strong>Fecha de Nacimiento:</strong> ${new Date(usuario.dob.date).toLocaleDateString()}</p>
+                    <p><strong>Ubicación:</strong> ${usuario.location.city}, ${usuario.location.country}</p>
+                `;
+                resultadoDiv.appendChild(usuarioContainer);
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+

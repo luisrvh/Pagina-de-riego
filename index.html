@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuro de la Viticultura Sostenible</title>
+    <style>
+        body {
+            background-image: url('fondo.jpg'); /* Reemplaza 'fondo.jpg' con la ruta de tu imagen */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .proyecto-container,
+        .formulario-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para el contenido */
+            border-radius: 10px;
+        }
+
+        .proyecto {
+            margin-bottom: 20px;
+        }
+
+        .formulario {
+            background-color: rgba(255, 255, 255, 0.8); /* Transparencia del formulario */
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            color: black; /* Cambio de color del texto a negro */
+        }
+
+        .formulario input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        .formulario button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .registro-button {
+            background-color: #3498db;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="proyecto-container">
+        <div class="proyecto">
+            <h1>¡Bienvenido al Futuro de la Viticultura Sostenible!</h1>
+            <p>Descubre nuestro Proyecto: Sistema IoT para Monitoreo y Análisis del Consumo de Agua en Viñedos</p>
+
+            <p>Desata el Poder de la Innovación:</p>
+            <p>Sumérgete en un proyecto revolucionario centrado en el desarrollo de un sistema IoT avanzado, diseñado para elevar la viticultura a nuevas alturas. Nos enfocamos en la optimización del uso del agua en viñedos a través de una red de sensores inteligentes estratégicamente ubicados, capturando datos cruciales de humedad del suelo, temperatura y consumo de agua.</p>
+
+            <p>Objetivos que Transforman:</p>
+            <ul>
+                <li>Maximizar la eficiencia del riego: Redefinimos la manera en que se utiliza el agua, minimizando el desperdicio y maximizando el rendimiento.</li>
+                <li>Salud óptima de las vides: Un monitoreo preciso de las condiciones del suelo garantiza vides más saludables y cosechas excepcionales.</li>
+                <li>Sostenibilidad y ahorro: Reducimos los costos operativos, impulsamos la sostenibilidad y mejoramos la rentabilidad de tu viñedo.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="formulario-container">
+        <div class="formulario">
+            <h2>Iniciar Sesión</h2>
+            <form action="iniciarsesion.html">
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" name="usuario" required>
+
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena" required>
+
+                <button type="button" onclick="window.location.href='iniciarsesion.html'">Iniciar Sesión</button>
+            </form>
+
+            <!-- Botón para redirigir a registro.html -->
+            <button class="registro-button" onclick="window.location.href='registro.html'">Registrarse</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Calidad que Impresiona, Tecnología que Inspira</p>
+        <p>¡Únete a la Revolución </p>
+
+</body>
+</html>
+
+

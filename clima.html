@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del Clima</title>
+    <style>
+        body {
+            background-image: url('fondo.jpg'); /* Reemplaza 'fondo.jpg' con la ruta de tu imagen */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        #weather-container {
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 10px;
+            padding: 100px;
+            max-width: 10000px; /* Ajusta según sea necesario */
+            margin: 20px auto; /* Alinea al centro horizontalmente, pero elimina el margen izquierdo */
+            text-align: center;
+            word-wrap: break-word;
+        }
+        .register-form button,
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            color: rgb(41, 235, 15);
+            
+        }
+    </style>
+</head>
+<body>
+
+<div id="weather-container">
+    <h2>Información del Clima</h2>
+    <label for="city-input">Ingrese la Ciudad: </label>
+    <input type="text" id="city-input" placeholder="Ej. New York">
+    <button onclick="buscarClima()">Buscar</button>
+    <p>Ciudad: <span id="city"></span></p>
+    <p>Clima Actual: <span id="current-weather"></span></p>
+    <p>Humedad: <span id="humidity"></span>%</p>
+    <a href="iniciarsesion.html" class="back-button">Regresar a la página principal</a>
+</div>
+
+<script>
+    function buscarClima() {
+        const ciudadInput = document.getElementById('city-input').value.trim();
+
+        if (ciudadInput === "") {
+            alert("Por favor, ingrese una ciudad válida.");
+            return;
+        }
+
+        const options = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        };
+
+        const apiKey = 'vXv0iNzd3ffQ6NVMylnpppeW7A4nXHOm';
+        const apiUrl = `https://api.tomorrow.io/v4/weather/forecast?location=${encodeURIComponent(ciudadInput)}&apikey=${apiKey}`;
+
+        console.log("URL de la API:", apiUrl);
+
+        fetch(apiUrl, options)
+            .then(response => response.json())
+            .then(data => {
+                // Accede a la información específica que necesitas
+                const city = data.location.name;
+                const currentWeather = data.timelines.daily[0].values.weatherCodeMin;
+                const humidity = data.timelines.daily[0].values.humidityAvg;
+
+                // Actualiza el contenido del contenedor con los datos
+                document.getElementById('city').textContent = city;
+                document.getElementById('current-weather').textContent = obtenerClima(currentWeather);
+                document.getElementById('humidity').textContent = humidity;
+
+                // Puedes hacer más acciones con los datos aquí
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
+            });
+    }
+
+    function obtenerClima(codigoClima) {
+        // Puedes mapear códigos de clima a descripciones amigables según la documentación de Tomorrow.io
+        switch (codigoClima) {
+            case 1000:
+                return 'Despejado';
+            // Puedes agregar más casos según sea necesario
+            default:
+                return 'No disponible';
+        }
+    }
+
+    
+
+</script>
+
+</body>
+</html>
